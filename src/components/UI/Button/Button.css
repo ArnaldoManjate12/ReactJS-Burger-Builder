@@ -1,0 +1,28 @@
+.Button{
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 4px;
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.Success{
+    border: solid 1px green;
+}
+
+.Success:hover{
+    border: solid 1px black;
+    background-color: green;
+
+}
+
+.Danger{
+    border: solid 1px red;
+    background-color: salmon;
+}
+
+.Danger:hover{
+   
+    border: solid 1px white;
+    color: white;
+}

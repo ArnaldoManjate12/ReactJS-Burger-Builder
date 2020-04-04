@@ -1,0 +1,13 @@
+
+.Modal{
+    background-color: #eee;
+    border: solid 1px black;
+    border-radius: 4px;
+    position: fixed;
+    top: 30%;
+    left: 20%;
+    /* transform: translate(-50%, -50%); */
+    text-align: center;
+    box-shadow: 1px 1px 1px rgb(43, 42, 42);
+    transition: all ease-in-out .5s;
+}

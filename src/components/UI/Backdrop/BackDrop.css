@@ -1,0 +1,16 @@
+
+.ListItem{
+    text-align: center;
+    list-style-type: none;
+    width: 100%;
+    padding: 10px;
+    
+}
+
+.Span{
+    font-size: 800;
+}
+
+ul{
+    padding: 0;
+}
