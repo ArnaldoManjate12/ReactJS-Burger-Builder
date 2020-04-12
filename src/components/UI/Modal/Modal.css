@@ -10,4 +10,5 @@
     text-align: center;
     box-shadow: 1px 1px 1px rgb(43, 42, 42);
     transition: all ease-in-out .5s;
+    z-index: 500;
 }

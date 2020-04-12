@@ -1,15 +1,18 @@
 import React from 'react';
 import BurgerLogo from '../../UI/Logo/Logo';
-import './Toolbar.css';
+import SideDrawerToggle from '../SideDrawer/SideDrawerToggle/SideDrawerToggle';
 import NavigationItems from '../NavigationItems/NavigationItems';
+import './Toolbar.css';
 
 const toolbar = (props) => (
     <div className="Toolbar">
-        <div>Menu</div>
-        <BurgerLogo />
-        <nav>
+        <SideDrawerToggle clicked={props.showdrawer}/>
+        <div className="ToolBarLogo">
+            <BurgerLogo />
+        </div>
+        <nav className="DesktopOnly">
             <ul>
-                < NavigationItems/>
+                <NavigationItems/>
             </ul>
         </nav>
     </div>

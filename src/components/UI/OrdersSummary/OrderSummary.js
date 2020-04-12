@@ -1,5 +1,5 @@
 import React from 'react';
-import './BackDrop.css';
+import './OrderSummary.css';
 import Button from '../Button/Button';
 
 
@@ -7,7 +7,7 @@ const backdrop = (props) => {
 
     const ingredients = Object.keys(props.ingredients)
     .map( igKey => {
-        return  <li className="ListItem" key={ igKey + (Math.floor(Math.random()) * Math.floor(2 * Math.random()))}>
+        return  <li className="ListItem" key={igKey}>
                     <span className="Span" style={{textTransform: "capitalize"}}>{igKey}</span> :{props.ingredients[igKey]}
                 </li>;
     })

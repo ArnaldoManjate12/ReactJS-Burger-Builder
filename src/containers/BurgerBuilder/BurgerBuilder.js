@@ -3,7 +3,7 @@ import React ,{Component} from'react';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
 import Modal from '../../components/UI/Modal/Modal';
-import Backdrop from '../../components/UI/Backdrop/BackDrop';
+import OrdersSummary from '../../components/UI/OrdersSummary/OrderSummary';
 import './BurgerBuilder.css';
 
 
@@ -99,12 +99,13 @@ class BurgerBuilder extends Component {
         return(
             <div className="BurgerBuilder">
                 <Burger ingredients={this.state.ingredients}/>
-                <Modal height="60%" width="60%" show={this.state.purchased}>
-                    <Backdrop
+                <Modal  width="60%" show={this.state.purchased}>
+                    <OrdersSummary
                         continued={this.handlePurchaseContinued}
                         canceled={this.handlePurchaseCanceled} 
                         ingredients={this.state.ingredients}
-                        totalprice={this.state.totalPrice.toFixed(2)}/>
+                        totalprice={this.state.totalPrice.toFixed(2)}
+                    />
                 </Modal>
                 <BurgerControls
                     price={this.state.totalPrice.toFixed(2)}
