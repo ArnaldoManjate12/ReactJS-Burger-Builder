@@ -4,8 +4,9 @@ import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrdersSummary from '../../components/UI/OrdersSummary/OrderSummary';
-import ordersInstance from '../../axios/axiosOrders';
+import axios from '../../axios/axiosOrders';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import './BurgerBuilder.css';
 
 const PRICES = {
@@ -69,7 +70,7 @@ class BurgerBuilder extends Component {
     }
 
     handlePurchaseContinued = () => {
-        this.setState({loading: true });
+        this.setState({loading: true , purchased: true });
         // dummy data
        const orderData = {
             Ingredients : this.state.ingredients,
@@ -86,7 +87,7 @@ class BurgerBuilder extends Component {
             DeliveryMethod : "Cheapest"
         }
 
-        ordersInstance.post("/orders.json",orderData)
+        axios.post("/orders",orderData)
         .then( response => {
             this.setState({loading: false });
             console.log(response);
@@ -132,7 +133,7 @@ class BurgerBuilder extends Component {
         return(
             <div className="BurgerBuilder">
                 <Burger ingredients={this.state.ingredients}/>
-                <Modal  width="60%" show={this.state.purchased}>
+                <Modal  width="60%" show={this.state.purchased} orderClicked={this.handlePurchaseContinued}>
                     {orderSummary}
                 </Modal>
                 <BurgerControls
@@ -147,4 +148,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder,axios);

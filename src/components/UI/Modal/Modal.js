@@ -5,9 +5,9 @@ import './Modal.css';
 
 class Modal extends Component {
     
-    shouldComponentUpdate( nextProps , nextState){
-        return this.props.show !== nextProps.show || this.props.children !== nextProps.children
-    }
+    // shouldComponentUpdate( nextProps , nextState){
+    //     return this.props.show !== nextProps.show || this.props.children !== nextProps.children
+    // }
 
     componentDidUpdate(){
         console.log("The Component Updated");
@@ -16,7 +16,7 @@ class Modal extends Component {
     render(){
         return(
             <Fragment>
-                <Backdrop  show={this.props.show}/>
+                <Backdrop  show={this.props.show} clicked={this.props.orderClicked}/>
                 <div className="Modal" style={{ 
                                         width : this.props.width ,
                                         height: this.props.height,
