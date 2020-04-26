@@ -1,0 +1,34 @@
+.AlertMessage{    
+    margin-top: 120px;
+    width: 25%;
+    right: 10%;
+    height: 100%;    
+}
+
+.AlertMessageSuccess{
+    background-color: green;
+    color: white;
+    border: 1px rgb(1, 63, 1) solid;
+    padding: 1%;
+    border-radius: 5px;
+    z-index: 100;
+    position: absolute;
+}
+
+.AlertMessageWarning{
+    background-color: yellow;
+    color: black;
+    border: 1px rgb(160, 124, 6) solid;
+    padding: 5%;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.AlertMessageDanger{
+    background-color: rgb(253, 167, 158);
+    color: white;
+    border: 1px red solid;
+    padding: 5%;
+    border-radius: 5px;
+    z-index: 100;
+}
