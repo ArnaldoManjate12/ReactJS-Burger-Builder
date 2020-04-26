@@ -4,9 +4,12 @@ import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrdersSummary from '../../components/UI/OrdersSummary/OrderSummary';
-import axios from '../../axios/axiosOrders';
+import axiosOrders from '../../axios/axiosOrders';
+import axios from 'axios';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import Aux from '../../hoc/aux/aux';
+import AlertMessage from '../../components/UI/AlertMessage/AlertMessage';
 import './BurgerBuilder.css';
 
 const PRICES = {
@@ -19,16 +22,25 @@ const PRICES = {
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients :{
-            salad : 0,
-            bacon : 0,
-            meat : 0,
-            cheese : 0
-        },
+        ingredients :null,
         totalPrice : 4,
         purchasable : false,
         purchased : false,
-        loading : false
+        loading : false,
+        error : null,
+        showAlert : false
+    }
+    
+    componentDidMount() {
+        axios.get('https://react-burger-bead9.firebaseio.com/ingredients.json')
+        .then( (response) => {
+            this.setState({ingredients : response.data });
+            console.log('Ingredients Response', response);
+        })
+        .catch( (error) => {
+            this.setState({error : error.message });
+            console.log('Ingredients Error ',error);
+        })
     }
 
     updatePurchasableHandler = (ingredients) => {
@@ -87,13 +99,14 @@ class BurgerBuilder extends Component {
             DeliveryMethod : "Cheapest"
         }
 
-        axios.post("/orders",orderData)
+        axiosOrders.post("/orders.json",orderData)
         .then( response => {
-            this.setState({loading: false });
+            this.setState({loading: false , purchased:false,showAlert: true});
+            // TODO : Display and order Sucess Message
             console.log(response);
         })
         .catch( error => {
-            this.setState({loading: false });
+            this.setState({loading: false, purchased: true });
             console.log(error);
         })
     }
@@ -115,34 +128,57 @@ class BurgerBuilder extends Component {
 
 
     render(){
+        let alertMsg = null;
+        if(this.state.showAlert) alertMsg=  <AlertMessage 
+                                                duration="5"
+                                                message="Order Saved Successfully"
+                                                classes="AlertMessageSuccess"
+                                            />;
         // for the less and more Buttons
         const disabledInfo = {...this.state.ingredients}
 
         for(let key in disabledInfo){
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
+        // prefer to handle null ingredients before we get the ingredients from firebase here 
+        // its better than doing in in another components
+        let burger = this.state.error ? <p>Error fetching Ingredients</p> :<Spinner />;
         
-        let orderSummary =   <OrdersSummary
+        let orderSummary = null
+        if( this.state.ingredients ){
+            burger= (<Aux>
+                        <Burger ingredients={this.state.ingredients}/>;
+                        <BurgerControls
+                            price={this.state.totalPrice.toFixed(2)}
+                            purchasable={this.state.purchasable} 
+                            disabledInfo={disabledInfo} 
+                            ingredientAdded={this.handleAddIngredient} 
+                            ingredientsRemoved={this.handleRemoveIngredient}
+                            ordered={this.handlePurchase} 
+                        />
+                    </Aux>);
+                    
+            orderSummary = <OrdersSummary
                                 continued={this.handlePurchaseContinued}
                                 canceled={this.handlePurchaseCanceled} 
                                 ingredients={this.state.ingredients}
-                                totalprice={this.state.totalPrice.toFixed(2)}/>;
-
+                                totalprice={this.state.totalPrice.toFixed(2)}
+                            />;
+        }
+           
         if (this.state.loading) orderSummary = <Spinner />;
-
+        
         return(
             <div className="BurgerBuilder">
-                <Burger ingredients={this.state.ingredients}/>
-                <Modal  width="60%" show={this.state.purchased} orderClicked={this.handlePurchaseContinued}>
+                {alertMsg}
+                <Modal  
+                    width="60%" 
+                    show={this.state.purchased} 
+                    orderClicked={this.handlePurchaseContinued}
+                >
                     {orderSummary}
                 </Modal>
-                <BurgerControls
-                    price={this.state.totalPrice.toFixed(2)}
-                    purchasable={this.state.purchasable} 
-                    disabledInfo={disabledInfo} 
-                    ingredientAdded={this.handleAddIngredient} 
-                    ingredientsRemoved={this.handleRemoveIngredient}
-                    ordered={this.handlePurchase} />
+                {burger}
             </div>
         );
     }
