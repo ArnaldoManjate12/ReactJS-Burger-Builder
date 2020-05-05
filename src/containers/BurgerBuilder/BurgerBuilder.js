@@ -82,33 +82,45 @@ class BurgerBuilder extends Component {
     }
 
     handlePurchaseContinued = () => {
-        this.setState({loading: true , purchased: true });
-        // dummy data
-       const orderData = {
-            Ingredients : this.state.ingredients,
-            Price : this.state.totalPrice,
-            Customer : {
-                Name :"Arnaldo",
-                Address : {
-                    Street : "12 Vleiloerie Street",
-                    ZipCode : 2019,
-                    Country : "South Africa"
-                },
-                Email : "test@gmail.com"
-            },
-            DeliveryMethod : "Cheapest"
-        }
+    //     this.setState({loading: true , purchased: true });
+    //     // dummy data
+    //    const orderData = {
+    //         Ingredients : this.state.ingredients,
+    //         Price : this.state.totalPrice,
+    //         Customer : {
+    //             Name :"Arnaldo",
+    //             Address : {
+    //                 Street : "12 Vleiloerie Street",
+    //                 ZipCode : 2019,
+    //                 Country : "South Africa"
+    //             },
+    //             Email : "test@gmail.com"
+    //         },
+    //         DeliveryMethod : "Cheapest"
+    //     }
 
-        axiosOrders.post("/orders.json",orderData)
-        .then( response => {
-            this.setState({loading: false , purchased:false,showAlert: true});
-            // TODO : Display and order Sucess Message
-            console.log(response);
-        })
-        .catch( error => {
-            this.setState({loading: false, purchased: true });
-            console.log(error);
-        })
+    //     axiosOrders.post("/orders.json",orderData)
+    //     .then( response => {
+    //         this.setState({loading: false , purchased:false,showAlert: true});
+    //         // TODO : Display and order Sucess Message
+    //         console.log(response);
+    //     })
+    //     .catch( error => {
+    //         this.setState({loading: false, purchased: true });
+    //         console.log(error);
+    //     })
+        
+     // URI encode the params this is relevant for space
+        const queryParams = [];
+        for( let i in this.state.ingredients ){
+            queryParams.push( encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]));
+        }
+        const queryString = queryParams.join('&');
+        // add query params to the url
+        this.props.history.push({
+            pathname: '/checkout',
+            search : '?' + queryString
+        });
     }
 
     handleRemoveIngredient = (type) => {
