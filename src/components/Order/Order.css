@@ -1,0 +1,19 @@
+.Order{
+    margin: 10px auto;
+    text-align: center;
+    width: 95%;
+    /* border: 1px solid black; */
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(148, 147, 147, 0.8);
+    border-radius: 3px;
+}
+
+.Ingredients{
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    border: solid 1px black;
+    border-radius: 3px;
+    text-transform: capitalize;
+}

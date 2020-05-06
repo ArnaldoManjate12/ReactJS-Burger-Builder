@@ -24,7 +24,7 @@ class Burger extends Component {
                 {burgerIngredients}
                 <BurgerIngredient type="bread-bottom"/>
             </div>
-        );
+        )
 
     }
 }

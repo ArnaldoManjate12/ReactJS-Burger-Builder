@@ -9,14 +9,20 @@
     color: #8F5C2C;
     text-decoration: none;
     width: 100%;
+    padding-bottom: 2px;
     box-sizing: border-box;
     display: block;
 }
+
+/* .NavigationItem a.active{
+    border-bottom: solid 2px #40a4C8;
+} */
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
     color: #40A4C8;
+    border-bottom: solid 2px #40a4C8;
 }
 
 @media (min-width: 500px) {

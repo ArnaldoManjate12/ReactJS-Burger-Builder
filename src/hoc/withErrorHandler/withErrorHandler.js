@@ -37,13 +37,12 @@ const withErrorHandler = (WrappedComponent,axios) => {
 
         render(){
             return (
-                <Aux>
-                    <Modal  
-                        height="200px" 
-                        width="200px" 
+                <Aux style={{height: '100%' , border : 'solid 1px red', backgroundColor: 'salmon'}}>
+                    <Modal 
+                        height="10%" 
+                        width="70%" 
                         show={this.state.didError} 
-                        orderClicked={this.errorAcknowledgedHandler}
-                    >
+                        orderClicked={this.errorAcknowledgedHandler}>
                     {this.state.didError ? this.state.error.message : null}
                     </Modal>
                     <WrappedComponent {...this.props}/>

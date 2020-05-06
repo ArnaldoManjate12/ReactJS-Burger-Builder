@@ -1,0 +1,15 @@
+.Orders{
+  text-align: center;
+}
+
+.NoOrders{
+    border: rgb(180, 177, 6) 1px solid;
+    color: white;
+    background-color: rgb(245, 245, 39);
+    border-radius: 4px;
+    width: 70%;
+    height: 30%;
+    padding: 1%;
+    margin: 0 auto;
+    text-shadow: 3px 3px 3px pxblack;
+}

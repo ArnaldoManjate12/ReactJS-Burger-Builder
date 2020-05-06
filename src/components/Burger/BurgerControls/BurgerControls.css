@@ -9,6 +9,7 @@
     margin: auto;
     padding: 10px 0;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .OrderButton{

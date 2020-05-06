@@ -4,7 +4,6 @@ import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrdersSummary from '../../components/UI/OrdersSummary/OrderSummary';
-import axiosOrders from '../../axios/axiosOrders';
 import axios from 'axios';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
@@ -44,7 +43,7 @@ class BurgerBuilder extends Component {
     }
 
     updatePurchasableHandler = (ingredients) => {
-        const sum = Object.keys(ingredients)
+        const sum =  Object.keys(ingredients)
                             .map( igKey => {
                                 return ingredients[igKey];
                             })
@@ -73,56 +72,6 @@ class BurgerBuilder extends Component {
 
     }
 
-    handlePurchase = () => {
-        this.setState({purchased : true});
-    }
-
-    handlePurchaseCanceled = () => {
-        this.setState({purchased : false});
-    }
-
-    handlePurchaseContinued = () => {
-    //     this.setState({loading: true , purchased: true });
-    //     // dummy data
-    //    const orderData = {
-    //         Ingredients : this.state.ingredients,
-    //         Price : this.state.totalPrice,
-    //         Customer : {
-    //             Name :"Arnaldo",
-    //             Address : {
-    //                 Street : "12 Vleiloerie Street",
-    //                 ZipCode : 2019,
-    //                 Country : "South Africa"
-    //             },
-    //             Email : "test@gmail.com"
-    //         },
-    //         DeliveryMethod : "Cheapest"
-    //     }
-
-    //     axiosOrders.post("/orders.json",orderData)
-    //     .then( response => {
-    //         this.setState({loading: false , purchased:false,showAlert: true});
-    //         // TODO : Display and order Sucess Message
-    //         console.log(response);
-    //     })
-    //     .catch( error => {
-    //         this.setState({loading: false, purchased: true });
-    //         console.log(error);
-    //     })
-        
-     // URI encode the params this is relevant for space
-        const queryParams = [];
-        for( let i in this.state.ingredients ){
-            queryParams.push( encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]));
-        }
-        const queryString = queryParams.join('&');
-        // add query params to the url
-        this.props.history.push({
-            pathname: '/checkout',
-            search : '?' + queryString
-        });
-    }
-
     handleRemoveIngredient = (type) => {
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount - 1;
@@ -138,6 +87,30 @@ class BurgerBuilder extends Component {
         this.updatePurchasableHandler(updatedIngredients);
     }
 
+    handlePurchase = () => {
+        this.setState({purchased : true});
+    }
+
+    handlePurchaseCanceled = () => {
+        this.setState({purchased : false});
+    }
+
+    handlePurchaseContinued = () => {   
+     // URI encode the params this is relevant for space
+        const queryParams = [];
+        
+        for( let i in this.state.ingredients ){
+            queryParams.push( encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]));
+        }
+        // addng the prce to the queryparams array
+        queryParams.push(`price=${this.state.totalPrice}`);
+        const queryString = queryParams.join('&');
+        // add query params to the url
+        this.props.history.push({
+            pathname: '/checkout',
+            search : '?' + queryString
+        });
+    }
 
     render(){
         let alertMsg = null;
@@ -159,7 +132,7 @@ class BurgerBuilder extends Component {
         let orderSummary = null
         if( this.state.ingredients ){
             burger= (<Aux>
-                        <Burger ingredients={this.state.ingredients}/>;
+                        <Burger ingredients={this.state.ingredients}/>
                         <BurgerControls
                             price={this.state.totalPrice.toFixed(2)}
                             purchasable={this.state.purchasable} 
@@ -186,8 +159,7 @@ class BurgerBuilder extends Component {
                 <Modal  
                     width="60%" 
                     show={this.state.purchased} 
-                    orderClicked={this.handlePurchaseContinued}
-                >
+                    orderClicked={this.handlePurchaseContinued}>
                     {orderSummary}
                 </Modal>
                 {burger}
