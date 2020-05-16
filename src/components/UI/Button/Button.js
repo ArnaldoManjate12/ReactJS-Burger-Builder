@@ -3,6 +3,7 @@ import './Button.css';
 
 const button = (props) => (
     <button
+        disabled={props.disabled}
         className={["Button" ,props.buttonclass].join(" ")}
         style={{ width: props.width }}
         onClick={props.clicked}>
