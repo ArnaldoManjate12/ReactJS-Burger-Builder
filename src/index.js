@@ -4,16 +4,21 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import { createStore } from 'redux'
+import { Provider} from 'react-redux'
+import Reducer from './store/reduder'
 
-const app = (
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-)
+
+const store = createStore(Reducer)
+
 
 ReactDOM.render(
   <React.StrictMode>
-   {app}
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

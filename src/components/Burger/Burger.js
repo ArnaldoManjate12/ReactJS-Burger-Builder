@@ -5,6 +5,10 @@ import './Burger.css';
 
 class Burger extends Component {
 
+    componentDidUpdate(){
+        console.log("Burger Props :",this.props)
+    }
+
     render(){
 
         let burgerIngredients = Object.keys(this.props.ingredients).map(
