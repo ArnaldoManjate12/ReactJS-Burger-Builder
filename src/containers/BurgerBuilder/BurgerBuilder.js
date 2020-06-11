@@ -10,7 +10,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Aux from '../../hoc/aux/aux';
 import AlertMessage from '../../components/UI/AlertMessage/AlertMessage';
 import {connect} from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as burgerBuilderActionCreators from '../../store/actions/index';
 import './BurgerBuilder.css';
 
 class BurgerBuilder extends Component {
@@ -130,10 +130,10 @@ const mapStateToProps = state => {
 
 const mapActionsToProps = dispatch => {
     return {
-        onIngredientAdded : (ingredName) => dispatch({ type : actionTypes.ADD_INGREDIENT , ingredientName : ingredName }),
-        onIngredientRemoved : (ingredName) => dispatch({ type : actionTypes.REMOVE_INGREDIENT , ingredientName : ingredName }),
-        onPriceIncrease : (ingredPrice) => dispatch({type : actionTypes.INCREASE_PRICE , ingredientPrice :ingredPrice }),
-        onPriceDecrease : (ingredPrice) => dispatch({type : actionTypes.REMOVE_INGREDIENT , ingredientPrice :ingredPrice})
+        onIngredientAdded : (ingredName) => dispatch( burgerBuilderActionCreators.addIngredient(ingredName)),
+        onIngredientRemoved : (ingredName) => dispatch( burgerBuilderActionCreators.removeIngredient(ingredName)),
+        // onPriceIncrease : (ingredPrice) => dispatch({type : actionTypes.INCREASE_PRICE , ingredientPrice :ingredPrice }),
+        // onPriceDecrease : (ingredPrice) => dispatch({type : actionTypes.REMOVE_INGREDIENT , ingredientPrice :ingredPrice})
     }
 }
 

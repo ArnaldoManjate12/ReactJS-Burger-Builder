@@ -1,4 +1,4 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../actions/actionTypes';
 
 const PRICES = {
     cheese : 2.50,
@@ -20,7 +20,6 @@ const initialState = {
 const Reducer = ( state = initialState , action ) => {
     switch( action.type ){
         case actionTypes.ADD_INGREDIENT:
-            console.log(" Adding Ingredient")
             return {
                 ...state,
                 // how to overwrite one of the properties we just copied from state
