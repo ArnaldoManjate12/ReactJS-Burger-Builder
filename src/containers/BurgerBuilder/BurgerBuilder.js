@@ -1,4 +1,3 @@
-
 import React ,{Component} from'react';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
@@ -13,29 +12,20 @@ import {connect} from 'react-redux';
 import * as burgerBuilderActionCreators from '../../store/actions/index';
 import './BurgerBuilder.css';
 
+
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients :null,
         totalPrice : 4,
         purchasable : false,
         purchased : false,
-        loading : false,
-        error : null,
         showAlert : false
     }
     
     componentDidMount() {
         console.log("Mounted Component")
-        // axios.get('https://react-burger-bead9.firebaseio.com/ingredients.json')
-        // .then( (response) => {
-        //     this.setState({ingredients : response.data });
-        //     console.log('Ingredients Response', response);
-        // })
-        // .catch( (error) => {
-        //     this.setState({error : error.message });
-        //     console.log('Ingredients Error ',error);
-        //})
+        this.props.onInitIngredients()
+ 
     }
 
     updatePurchasableHandler = (ingredients) => {
@@ -80,7 +70,7 @@ class BurgerBuilder extends Component {
         }
         // prefer to handle null ingredients before we get the ingredients from firebase here 
         // its better than doing in in another components
-        let burger = this.state.error ? <p>Error fetching Ingredients</p> :<Spinner />;
+        let burger = this.props.error ? <p>Error fetching Ingredients</p> :<Spinner />;
         
         let orderSummary = null
         if( this.props.ingred ){
@@ -100,8 +90,7 @@ class BurgerBuilder extends Component {
                                 continued={this.handlePurchaseContinued}
                                 canceled={this.handlePurchaseCanceled} 
                                 ingredients={this.props.ingred}
-                                totalprice={this.props.price.toFixed(2)}
-                            />;
+                                totalprice={this.props.price.toFixed(2)} />;
         }
            
         if (this.state.loading) orderSummary = <Spinner />;
@@ -123,8 +112,9 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingred : state.ingredients ,
-        price : state.totalPrice
+        ingred : state.burgerBuilder.ingredients ,
+        price : state.burgerBuilder.totalPrice ,
+        error : state.burgerBuilder.error
     }
 }
 
@@ -132,6 +122,7 @@ const mapActionsToProps = dispatch => {
     return {
         onIngredientAdded : (ingredName) => dispatch( burgerBuilderActionCreators.addIngredient(ingredName)),
         onIngredientRemoved : (ingredName) => dispatch( burgerBuilderActionCreators.removeIngredient(ingredName)),
+        onInitIngredients : () => dispatch( burgerBuilderActionCreators.initIngredients() )
         // onPriceIncrease : (ingredPrice) => dispatch({type : actionTypes.INCREASE_PRICE , ingredientPrice :ingredPrice }),
         // onPriceDecrease : (ingredPrice) => dispatch({type : actionTypes.REMOVE_INGREDIENT , ingredientPrice :ingredPrice})
     }

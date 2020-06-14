@@ -4,16 +4,21 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import { createStore, applyMiddleware , compose } from 'redux'
+import { createStore, applyMiddleware , compose, combineReducers } from 'redux'
 import { Provider} from 'react-redux'
 
-import burgerBuilderReducer from './store/reducers/burgerBuilder'
+import burgerBuilder from './store/reducers/burgerBuilder'
+import order from './store/reducers/order'
 import thunk from 'redux-thunk';
 
 // because we will be handling asyncronous using redux-thunk we will go for the advanced setup
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const rootReducer = combineReducers({
+  burgerBuilder :burgerBuilder, 
+  order : order
+})
 
-const store = createStore(burgerBuilderReducer, composeEnhancers( applyMiddleware(thunk)) )
+const store = createStore( rootReducer, composeEnhancers( applyMiddleware(thunk)) )
 
 
 ReactDOM.render(

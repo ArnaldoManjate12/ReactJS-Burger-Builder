@@ -28,7 +28,7 @@ const CheckoutSummary = (props) => {
 
 const mapStateTopProps = state => {
     return {
-        ingred : state.ingredients
+        ingred : state.burgerBuilder.ingredients
     }
 }
 export default connect(mapStateTopProps)(CheckoutSummary);
