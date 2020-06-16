@@ -1,3 +1,14 @@
 // group all exports to one file (bundling)
-export { addIngredient ,removeIngredient,initIngredients} from './burgerBuilder'
-export {purchaseBurger,purchaseBurgerStart} from './order'
+
+// action cretors from ./burgerBuilder.js
+export { addIngredient ,
+        removeIngredient,
+        initIngredients} from './burgerBuilder'
+
+// action cretors from ./orders.js
+export {purchaseBurger,
+        purchaseBurgerStart,
+        initPurchase,
+        fetchOrders } from './order'
+// action cretors from ./auth.js
+export { Authenticate } from './auth'

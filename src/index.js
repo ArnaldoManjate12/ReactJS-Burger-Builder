@@ -9,13 +9,15 @@ import { Provider} from 'react-redux'
 
 import burgerBuilder from './store/reducers/burgerBuilder'
 import order from './store/reducers/order'
+import auth from './store/reducers/auth'
 import thunk from 'redux-thunk';
 
 // because we will be handling asyncronous using redux-thunk we will go for the advanced setup
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   burgerBuilder :burgerBuilder, 
-  order : order
+  order : order,
+  auth
 })
 
 const store = createStore( rootReducer, composeEnhancers( applyMiddleware(thunk)) )

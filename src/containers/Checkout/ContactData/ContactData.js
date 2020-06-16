@@ -114,15 +114,16 @@ class ContactData extends Component {
 
     PostOrder = (event) => {
         event.preventDefault();
-        this.setState({loading: true , purchased: true });
+        // this.setState({loading: true , purchased: true });
          // assign key value pairs
         const orderData = {};
         for( let inputelement in this.state.orderForm ){
             orderData[inputelement] = this.state.orderForm[inputelement].value;
         }
+        
         const order = {
             ingredients : this.props.ingred,
-            price : this.props.totalPrice,
+            price : this.props.price,
             orderData : orderData,
             createDate : new Date()
         }
@@ -146,6 +147,17 @@ class ContactData extends Component {
         if ( rules.minLength ) {
             isValid = value.length >= rules.minLength  && isValid;
             if(isValid === false)  console.log( value ," is too short");
+        }
+
+        // check email validation too , this needs a regex
+        if( rules.isEmail ){
+            const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            isValid = pattern.test( value ) && isValid
+        }
+        // check for numeric characters
+        if ( rules.isNumeric ) {
+            const pattern = /^\d+$/
+            isValid =  pattern.test(value) && isValid 
         }
         return isValid;
     }

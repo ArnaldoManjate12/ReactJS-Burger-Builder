@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility'
 
 const PRICES = {
     cheese : 2.50,
@@ -16,28 +17,25 @@ const initialState = {
 const Reducer = ( state = initialState , action ) => {
     switch( action.type ){
         case actionTypes.ADD_INGREDIENT:
-            return {
-                ...state,
-                // how to overwrite one of the properties we just copied from state
+            const updatedProperties = {
                 ingredients :{
                     ...state.ingredients,
                     [action.ingredientName] : state.ingredients[action.ingredientName] + 1
                 },
                 totalPrice : state.totalPrice + PRICES[action.ingredientName] 
-               
             }
+
+            return updateObject(state, updatedProperties)
         case actionTypes.REMOVE_INGREDIENT: 
-            console.log(" Removing Ingredient")
-            return {
-                ...state,
-                // how to overwrite one of the properties we just copied from state
+            const updatedRemoveProperties = {
                 ingredients :{
                     ...state.ingredients,
                     [action.ingredientName] : state.ingredients[action.ingredientName] - 1
                 },
-                totalPrice : state.totalPrice - PRICES[action.ingredientName]
-               
+                totalPrice : state.totalPrice - PRICES[action.ingredientName] 
             }
+
+            return updateObject(state, updatedRemoveProperties)
         case actionTypes.SET_INGREDIENTS :
             const ingredients = {
                 salad : action.ingredients.salad,
@@ -45,16 +43,17 @@ const Reducer = ( state = initialState , action ) => {
                 bacon : action.ingredients.bacon,
                 meat : action.ingredients.meat
             }
-            return {
-                ...state,
+
+            const updatedSetProperties = {
                 ingredients : ingredients,
+                totalPrice : 4,
                 error : false
             }
+
+            return updateObject( state ,updatedSetProperties )
         case actionTypes.FETCH_INGREDIENTS_FAILED:
-            return {
-                ...state,
-                error : true
-            }
+            const updatedErrorProperties = {error : true }
+            return updateObject( state , updatedErrorProperties )
         default :
             return state
     }
