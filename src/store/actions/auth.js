@@ -21,12 +21,19 @@ export const Authenticate = ( email , password , isSignUp ) => {
         } )
         .catch( error => {
             console.log(error)
-            dispatch( AuthFail(error.response.data.error) )
+            dispatch( AuthFail(error.response.data.error.message ) )
         })
     }
 }
 
-const Logout = ( token , userId ) => {
+export const authSetRedirectPath = ( path ) => {
+    return {
+        type : actionTypes.AUTH_SET_REDIRECT_PATH,
+        redirectPath : path
+    }
+}
+
+export const Logout = () => {
     return {
         type : actionTypes.AUTH_LOGOUT,
     }

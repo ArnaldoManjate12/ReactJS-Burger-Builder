@@ -4,8 +4,9 @@ import { updateObject } from '../utility'
 const initailState = {
     error : null,
     userId : '',
-    token : '',
-    loading : false
+    token : null,
+    loading : false,
+    redirectPath: '/'
 }
 
 const authStart = (state , action) => {
@@ -27,6 +28,10 @@ const authLogout = ( state , action ) => {
     return updateObject( state , { userId : null , token : null })
 }
 
+const authRedirectPath = ( state , action ) => {
+    return updateObject( state , { redirectPath : action.redirectPath})
+}
+
 // below are all the actionTypes that we check for in this reducer
 const reducer = ( state = initailState , action ) => {
     switch( action.type ){
@@ -34,6 +39,7 @@ const reducer = ( state = initailState , action ) => {
         case actionTypes.AUTH_SUCCESS : return authSuccess( state , action )
         case actionTypes.AUTH_LOGOUT : return authLogout( state , action )
         case actionTypes.AUTH_FAIL: return authFail( state , action )
+        case actionTypes.AUTH_SET_REDIRECT_PATH: return authRedirectPath( state , action )
         default : return state
     }
 }

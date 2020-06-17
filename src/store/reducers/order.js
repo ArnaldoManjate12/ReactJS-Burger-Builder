@@ -15,7 +15,7 @@ const initPurchase = (action , state ) => {
 
 const ruducer = ( state = initialState , action ) => {
     switch( action.type ){
-        case actionTypes.INIT_PURCHASE: 
+        case actionTypes.PURCHASE_INIT: 
             return initPurchase(action , state)
         case actionTypes.PURCHASE_BURGER_START:
             return updateObject( state , {loading : true} )

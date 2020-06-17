@@ -18,9 +18,9 @@ class Burger extends Component {
                 }
             )).flat(); // flatten nested array to do length check
 
-        console.log(burgerIngredients);
+        console.log("burgerIngredients :" ,burgerIngredients);
 
-        burgerIngredients = burgerIngredients < 1 ? <div>PLease select Ingredient</div> : burgerIngredients;
+        burgerIngredients = burgerIngredients.length < 1 ? <div>PLease select Ingredient</div> : burgerIngredients;
 
         return(
             <div className="Burger">

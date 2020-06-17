@@ -18,7 +18,7 @@ class Orders extends Component {
     componentDidMount() {
       console.log(this.props)
       // get the orders from the Database
-      this.props.onFetchOrders()
+      this.props.onFetchOrders(this.props.token)
     }
 
     render(){
@@ -29,9 +29,7 @@ class Orders extends Component {
           orders = <Spinner />;
         }else{
           if(this.props.orders.length > 0){
-            console.log("Orders :" ,this.props.orders)
-            orders = this.props.orders.map( order =>{
-      
+            orders = this.props.orders.map( order => {
               return  <Order 
                         key={order.createDate}
                         price={order.price} 
@@ -54,13 +52,14 @@ const mapStateToProps = state => {
   return {
     orders : state.order.orders,
     error : state.order.error,
-    loading : state.order.loading
+    loading : state.order.loading,
+    token : state.auth.token
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders : () => dispatch( actions.fetchOrders() )
+    onFetchOrders : (token) => dispatch( actions.fetchOrders(token) )
   }
 }
 

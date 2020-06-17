@@ -11,7 +11,8 @@ const PRICES = {
 const initialState = {
     totalPrice : 4,
     ingredients : [],
-    error : null
+    error : null,
+    building : false
 }
 
 const Reducer = ( state = initialState , action ) => {
@@ -22,7 +23,8 @@ const Reducer = ( state = initialState , action ) => {
                     ...state.ingredients,
                     [action.ingredientName] : state.ingredients[action.ingredientName] + 1
                 },
-                totalPrice : state.totalPrice + PRICES[action.ingredientName] 
+                totalPrice : state.totalPrice + PRICES[action.ingredientName],
+                building : true
             }
 
             return updateObject(state, updatedProperties)
@@ -32,7 +34,8 @@ const Reducer = ( state = initialState , action ) => {
                     ...state.ingredients,
                     [action.ingredientName] : state.ingredients[action.ingredientName] - 1
                 },
-                totalPrice : state.totalPrice - PRICES[action.ingredientName] 
+                totalPrice : state.totalPrice - PRICES[action.ingredientName],
+                building : true
             }
 
             return updateObject(state, updatedRemoveProperties)
@@ -41,7 +44,8 @@ const Reducer = ( state = initialState , action ) => {
                 salad : action.ingredients.salad,
                 cheese : action.ingredients.cheese,
                 bacon : action.ingredients.bacon,
-                meat : action.ingredients.meat
+                meat : action.ingredients.meat,
+                building : false
             }
 
             const updatedSetProperties = {

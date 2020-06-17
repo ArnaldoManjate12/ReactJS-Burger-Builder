@@ -8,7 +8,9 @@ export { addIngredient ,
 // action cretors from ./orders.js
 export {purchaseBurger,
         purchaseBurgerStart,
-        initPurchase,
+        purchaseInit,
         fetchOrders } from './order'
 // action cretors from ./auth.js
-export { Authenticate } from './auth'
+export { Authenticate,
+         Logout,
+        authSetRedirectPath } from './auth'

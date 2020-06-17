@@ -22,9 +22,8 @@ const BurgerControls = (props) =>  {
                                             key={ctrl.label}/> )}
                 <button className="OrderButton"
                     disabled={!props.purchasable}
-                    onClick={props.ordered}
-                    >
-                        ORDER NOW
+                    onClick={props.ordered}>
+                        {props.isAuthenticate ? 'ORDER NOW' : 'SIGN IN TO ORDER'}
                 </button>                            
             </div>
             

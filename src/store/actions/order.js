@@ -2,9 +2,9 @@ import axiosOrders from '../../axios/axiosOrders'
 import * as actionTypes from '../actions/actionTypes'
 
 
-export const initPurchase = () => {
+export const purchaseInit = () => {
     return {
-        type : actionTypes.INIT_PURCHASE
+        type : actionTypes.PURCHASE_INIT
     }
 }
 
@@ -16,12 +16,13 @@ export const purchaseBurgerStart = () => {
 
 
 // asyncronous Order Action creators
-export const  purchaseBurger = (orderData) => {
+export const  purchaseBurger = (orderData , token ) => {
     return dispatch => {
         dispatch( purchaseBurgerStart() )
-        axiosOrders.post( "/orders.json" , orderData )
+        axiosOrders.post( "/orders.json?auth=" + token, orderData )
         .then( response => {
             dispatch( purchaseBurgerSuccess(response.data , orderData) )
+            dispatch( purchaseInit( ))
         })
         .catch( error => {
             dispatch( purchaseBurgerFail(error) )
@@ -45,10 +46,10 @@ export const purchaseBurgerFail = ( error ) => {
 }
 
 // Action creators for the Orders page
-export const fetchOrders = () => {
+export const fetchOrders = ( token ) => {
     return dispatch => { 
         dispatch( fetchOrdersStart() )
-        axiosOrders.get('orders.json')
+        axiosOrders.get('orders.json?auth=' + token )
         .then( response => {
             // reponse.data = { key{ key : data} , key{ key : data} }
             const orders = [];
