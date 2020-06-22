@@ -15,13 +15,18 @@ export const Authenticate = ( email , password , isSignUp ) => {
         // authenticate
         axois.post( url , authData )
         .then( response => {
-            console.log(response)
+            const experationDate = new Date( new Date().getTime() + response.data.expiresIn * 1000)
+            localStorage.setItem('experationDate', experationDate)
+            localStorage.setItem('token', response.data.idToken)
+            localStorage.setItem('userId', response.data.localId)
+
+            console.log("Response from Authenticating :" ,response)
             dispatch( CheckAuthTimeout( response.data.expiresIn ) )
             dispatch( AuthSuccess(response.data.idToken , response.data.localId) )
         } )
         .catch( error => {
-            console.log(error)
-            dispatch( AuthFail(error.response.data.error.message ) )
+            console.log("Athentication Error :" ,error)
+            dispatch( AuthFail(error) )
         })
     }
 }
@@ -34,6 +39,10 @@ export const authSetRedirectPath = ( path ) => {
 }
 
 export const Logout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('experationDate')
+    localStorage.removeItem('userId')
+
     return {
         type : actionTypes.AUTH_LOGOUT,
     }
@@ -65,5 +74,25 @@ const AuthFail = ( error ) => {
     return {
         type : actionTypes.AUTH_FAIL,
         error : error
+    }
+}
+
+export const AuthCheckState = ( ) => {
+    return dispatch => {
+        const token = localStorage.getItem('token')
+        if( !token ){
+            dispatch( Logout() )
+        }else{
+            const userId = localStorage.getItem('userId')
+            const experationDate = new Date(localStorage.getItem('experationDate'))
+            if( experationDate <= new Date() ){
+                dispatch( Logout() )
+            }else{
+                dispatch( AuthSuccess( token, userId ) )
+                // the difference will be the expiry Date
+                dispatch( CheckAuthTimeout(experationDate.getTime() - new Date().getTime() / 1000 ) )
+            }
+    
+        }
     }
 }

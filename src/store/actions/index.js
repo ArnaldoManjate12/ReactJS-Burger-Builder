@@ -13,4 +13,5 @@ export {purchaseBurger,
 // action cretors from ./auth.js
 export { Authenticate,
          Logout,
-        authSetRedirectPath } from './auth'
+         authSetRedirectPath,
+         AuthCheckState } from './auth'

@@ -18,7 +18,7 @@ class Orders extends Component {
     componentDidMount() {
       console.log(this.props)
       // get the orders from the Database
-      this.props.onFetchOrders(this.props.token)
+      this.props.onFetchOrders(this.props.token , this.props.userId)
     }
 
     render(){
@@ -53,13 +53,14 @@ const mapStateToProps = state => {
     orders : state.order.orders,
     error : state.order.error,
     loading : state.order.loading,
-    token : state.auth.token
+    token : state.auth.token,
+    userId : state.auth.userId
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders : (token) => dispatch( actions.fetchOrders(token) )
+    onFetchOrders : (token , userId) => dispatch( actions.fetchOrders(token, userId) )
   }
 }
 
