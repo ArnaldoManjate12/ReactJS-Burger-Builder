@@ -6,7 +6,7 @@ import './Burger.css';
 class Burger extends Component {
 
     componentDidUpdate(){
-        console.log("Burger Props :",this.props)
+        
     }
 
     render(){
@@ -17,8 +17,6 @@ class Burger extends Component {
                     return <BurgerIngredient type={ingredientKey} key={ ingredientKey + i }/>
                 }
             )).flat(); // flatten nested array to do length check
-
-        console.log("burgerIngredients :" ,burgerIngredients);
 
         burgerIngredients = burgerIngredients.length < 1 ? <div>PLease select Ingredient</div> : burgerIngredients;
 

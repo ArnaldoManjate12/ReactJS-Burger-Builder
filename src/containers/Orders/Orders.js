@@ -16,7 +16,6 @@ class Orders extends Component {
     }
 
     componentDidMount() {
-      console.log(this.props)
       // get the orders from the Database
       this.props.onFetchOrders(this.props.token , this.props.userId)
     }

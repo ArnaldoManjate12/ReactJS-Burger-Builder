@@ -7,6 +7,7 @@ import './ContactData.css';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux'
+import { checkValidity } from '../../../shared/utility'
 
 
 class ContactData extends Component {
@@ -133,43 +134,12 @@ class ContactData extends Component {
     }
 
 
-    checkValidity = ( value , rules ) => {
-        let isValid = true;
-        if( rules.required ){
-            isValid = value.trim() !== '' && isValid; // making sure that all the required conditions are true
-            if(isValid === false)  console.log( value ," is empty");
-        }
-
-        if ( rules.maxLength ) {
-            isValid = value.length <= rules.maxLength  && isValid;
-            if(isValid === false)  console.log( value ," is too long");
-           
-        }
-
-        if ( rules.minLength ) {
-            isValid = value.length >= rules.minLength  && isValid;
-            if(isValid === false)  console.log( value ," is too short");
-        }
-
-        // check email validation too , this needs a regex
-        if( rules.isEmail ){
-            const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            isValid = pattern.test( value ) && isValid
-        }
-        // check for numeric characters
-        if ( rules.isNumeric ) {
-            const pattern = /^\d+$/
-            isValid =  pattern.test(value) && isValid 
-        }
-        return isValid;
-    }
-
     inputChangeHandler = (event , inputIdentifier) => {
         // do a clone of the first level 
         const updatedForm = {...this.state.orderForm};
         const updatedFormElement = {...updatedForm[inputIdentifier]};
         updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity( updatedFormElement.value , updatedFormElement.validation );
+        updatedFormElement.valid = checkValidity( updatedFormElement.value , updatedFormElement.validation );
         updatedFormElement.touched = true;
         updatedForm[inputIdentifier] = updatedFormElement;
         // check that the whole form is valid
@@ -191,7 +161,6 @@ class ContactData extends Component {
             })
         }
 
-        console.log("Form is VALID " ,this.state.formIsValid);
         
         let form = (
             <form onSubmit={this.PostOrder}>

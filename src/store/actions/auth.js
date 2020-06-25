@@ -20,12 +20,10 @@ export const Authenticate = ( email , password , isSignUp ) => {
             localStorage.setItem('token', response.data.idToken)
             localStorage.setItem('userId', response.data.localId)
 
-            console.log("Response from Authenticating :" ,response)
             dispatch( CheckAuthTimeout( response.data.expiresIn ) )
             dispatch( AuthSuccess(response.data.idToken , response.data.localId) )
         } )
         .catch( error => {
-            console.log("Athentication Error :" ,error)
             dispatch( AuthFail(error) )
         })
     }

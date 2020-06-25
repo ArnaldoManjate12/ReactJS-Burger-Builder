@@ -21,7 +21,6 @@ class BurgerBuilder extends Component {
     }
     
     componentDidMount() {
-        console.log("Mounted Component")
         this.props.onInitIngredients()
  
     }
@@ -34,7 +33,6 @@ class BurgerBuilder extends Component {
                             .reduce((sum , el) => {
                                 return sum + el;
                             },0)
-        console.log("Sum is of ingredientCount: ",sum);
         // we cater for the HTML disabled attribute 
         return sum > 0 
         

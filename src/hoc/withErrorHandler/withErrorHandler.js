@@ -21,7 +21,6 @@ const withErrorHandler = (WrappedComponent,axios) => {
             // the response must return something
              axios.interceptors.response.use( res => res , err => {
                 this.setState({error:err, didError: true});
-                console.log("Error in contsructor :", err);
             });
         }
         // now to prevent creating multiple interceptors and stop memory leaks 
