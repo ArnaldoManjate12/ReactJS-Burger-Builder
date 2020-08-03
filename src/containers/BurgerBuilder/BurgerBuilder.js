@@ -11,7 +11,8 @@ import Aux from '../../hoc/aux/aux';
 import AlertMessage from '../../components/UI/AlertMessage/AlertMessage';
 import {connect} from 'react-redux';
 import './BurgerBuilder.css';
-class BurgerBuilder extends Component {
+// exporting the class without the connection to redux for testing purposes
+export class BurgerBuilder extends Component {
 
     state = {
         totalPrice : 4,
