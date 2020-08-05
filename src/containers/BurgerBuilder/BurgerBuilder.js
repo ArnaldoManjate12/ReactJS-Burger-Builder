@@ -23,7 +23,10 @@ export class BurgerBuilder extends Component {
     
     componentDidMount() {
         this.props.onInitIngredients()
- 
+        window.scrollTo(0,0)
+        // if(this.props.orderSuccess){
+        //     this.props.onEnableOrderAlert()
+        // }
     }
 
     updatePurchasableHandler = (ingredients) => {
@@ -60,11 +63,15 @@ export class BurgerBuilder extends Component {
 
     render(){
         let alertMsg = null;
-        if(this.state.showAlert) alertMsg=  <AlertMessage 
-                                                duration="5"
-                                                message="Order Saved Successfully"
-                                                classes="AlertMessageSuccess"
-                                            />;
+        if(this.props.orderSuccess){
+            alertMsg = <AlertMessage 
+                            duration="5"
+                            message="Order Saved Successfully"
+                            classes="AlertMessageSuccess" />
+
+            // this.props.onClearOrderSuccess()
+        }
+      
         // for the less and more Buttons
         const disabledInfo = {...this.props.ingred}
 
@@ -119,7 +126,8 @@ const mapStateToProps = state => {
         ingred : state.burgerBuilder.ingredients ,
         price : state.burgerBuilder.totalPrice ,
         error : state.burgerBuilder.error,
-        isAuthenticate : state.auth.token !== null
+        isAuthenticate : state.auth.token !== null,
+        orderSuccess : state.order.orderSuccess
     }
 }
 
@@ -128,7 +136,9 @@ const mapActionsToProps = dispatch => {
         onIngredientAdded : (ingredName) => dispatch( actions.addIngredient(ingredName)),
         onIngredientRemoved : (ingredName) => dispatch( actions.removeIngredient(ingredName)),
         onInitIngredients : () => dispatch( actions.initIngredients() ),
-        onAuthRedirectPath : (path) => dispatch( actions.authSetRedirectPath( path ))
+        onAuthRedirectPath : (path) => dispatch( actions.authSetRedirectPath( path )),
+        onEnableOrderAlert : () => dispatch( actions.enableOrderAlert()),
+        onClearOrderSuccess : () => dispatch( actions.clearOrderSuccess())
      
     }
 }

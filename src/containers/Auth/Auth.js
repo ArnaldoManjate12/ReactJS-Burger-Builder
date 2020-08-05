@@ -116,20 +116,33 @@ class Auth extends Component {
           
             <div className={classes.Auth}>
                 {redirect}
-                {error}
+                <span style={{color: 'red' , fontWeight : 800}}>{this.props.error}</span>
                 <form className={classes.Auth_Form} onSubmit={this.SubmitHandler}>
                     { form }
                     <ButtonComponent 
                         buttonclass="Success">
-                       Submit
+                       {this.state.isSignUp ? "Sign Up" : "Sign In"}
                     </ButtonComponent>
                     <br/>
-                    <br/>
-                    <ButtonComponent style={{ marginTop: '20px'}}
-                        clicked={this.SwitchAuthenticationMode}
-                        buttonclass="Success">
-                        {this.state.isSignUp ? "Sign In" : "Sign Up"}
-                    </ButtonComponent>
+                    {
+                        this.state.isSignUp ? 
+                        <small style={{ 'marginTop': '10px', 'display': 'block' }}>
+                            already have an account 
+                            <span onClick={this.SwitchAuthenticationMode} 
+                                  style={{ color: 'brown', cursor: 'pointer', marginLeft: '6px' }}
+                            >
+                              Sign In
+                            </span>
+                        </small>:
+                        <small style={{ 'marginTop': '10px', 'display': 'block' }}>
+                        dont have an account 
+                        <span onClick={this.SwitchAuthenticationMode} 
+                              style={{ color: 'brown', cursor: 'pointer', marginLeft: '6px' }}
+                         >
+                         Sign Up
+                         </span>
+                        </small>
+                    }
                 </form>
             </div>
         )

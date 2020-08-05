@@ -9,7 +9,9 @@ export { addIngredient ,
 export {purchaseBurger,
         purchaseBurgerStart,
         purchaseInit,
-        fetchOrders } from './order'
+        fetchOrders,
+        enableOrderAlert,
+        clearOrderSuccess } from './order'
 // action cretors from ./auth.js
 export { Authenticate,
          Logout,

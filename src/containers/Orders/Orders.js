@@ -32,6 +32,7 @@ class Orders extends Component {
               return  <Order 
                         key={order.createDate}
                         price={order.price} 
+                        createDate={order.createDate}
                         ingredients={order.ingredients}/> // an object is not a valid childs
             } )
           }

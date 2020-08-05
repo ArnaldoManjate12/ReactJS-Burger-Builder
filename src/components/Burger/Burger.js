@@ -18,13 +18,26 @@ class Burger extends Component {
                 }
             )).flat(); // flatten nested array to do length check
 
-        burgerIngredients = burgerIngredients.length < 1 ? <div>PLease select Ingredient</div> : burgerIngredients;
+        // logic to deal with the ingredients from the server on initialisation
+        let noIgredients = true;
+        for( let ingredientKey in this.props.ingredients){
+            if( this.props.ingredients[ingredientKey] > 0){
+                noIgredients = false;
+                break;
+            }
+        }
+
+        let orderSuccess = null
+        if( this.props.orderSuccess ) orderSuccess = <p>Successful Order</p>
+        // check if there were ingredient from returned the serevr if not display a message
+        burgerIngredients = noIgredients ? <div>Please select an Ingredient</div> : burgerIngredients;
 
         return(
             <div className="Burger">
+                {orderSuccess && <span style={{ fontSize : '40px'}}>Succesfull Order</span>}
                 <BurgerIngredient type="bread-top"/>
                 {burgerIngredients}
-                <BurgerIngredient type="bread-bottom"/>
+                <BurgerIngredient type="bread-bottom"/> 
             </div>
         )
 

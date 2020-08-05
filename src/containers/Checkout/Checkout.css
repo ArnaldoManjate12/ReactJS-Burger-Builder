@@ -1,8 +1,10 @@
 .Checkout{
     width: 100%;
+    display: relative;
 }
 
 .ContactDetails{
     width: 80%;
     margin: 0 auto;
+    display: relative;
 }

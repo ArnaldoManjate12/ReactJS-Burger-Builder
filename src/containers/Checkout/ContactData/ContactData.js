@@ -8,8 +8,6 @@ import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux'
 import { checkValidity } from '../../../shared/utility'
-
-
 class ContactData extends Component {
     state = {
         orderForm : {
@@ -116,7 +114,7 @@ class ContactData extends Component {
     PostOrder = (event) => {
         event.preventDefault();
         // this.setState({loading: true , purchased: true });
-         // assign key value pairs
+        // assign key value pairs
         const orderData = {};
         for( let inputelement in this.state.orderForm ){
             orderData[inputelement] = this.state.orderForm[inputelement].value;
@@ -165,26 +163,30 @@ class ContactData extends Component {
         let form = (
             <form onSubmit={this.PostOrder}>
                {orderFormArr.map( input => <Input
-                                            key={input.id} 
-                                            elementConfig={input.config.elementConfig}  
-                                            elementType={input.config.elementType} 
-                                            value={input.config.value}
-                                            isInvalid={!input.config.valid}
-                                            touched={input.config.touched}
-                                            shouldValidate={input.config.validation}
-                                            changed={ (event) => this.inputChangeHandler(event, input.id) } /> )}
+                                                key={input.id} 
+                                                elementConfig={input.config.elementConfig}  
+                                                elementType={input.config.elementType} 
+                                                value={input.config.value}
+                                                isInvalid={!input.config.valid}
+                                                touched={input.config.touched}
+                                                shouldValidate={input.config.validation}
+                                                changed={ (event) => this.inputChangeHandler(event, input.id) } /> )}
                                             
             <Button disabled={!this.state.formIsValid} buttonclass="Success"> Submit </Button>
             </form>
         );
 
+        let orderSuccess = null
         if( this.props.loading ) form = <Spinner />
 
         return(
-            <div className="ContactData">
-                <h1> Enter Your Contact Details</h1>
-                { form }
-            </div>
+            <>
+                { orderSuccess }
+                <div className="ContactData">
+                    <h1> Enter Your Contact Details</h1>
+                    { form }
+                </div>
+            </>
         )
     }
 }
@@ -194,6 +196,7 @@ const mapStateToProps = (state) => {
         ingred : state.burgerBuilder.ingredients,
         price : state.burgerBuilder.totalPrice,
         loading : state.order.loading,
+        orderSuccess : state.order.orderSuccess,
         token : state.auth.token,
         userId : state.auth.userId
     }

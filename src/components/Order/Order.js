@@ -8,6 +8,11 @@ class Order extends Component {
      
     }
 
+    convertDate = (orderDate) => {
+      let date = new Date(orderDate);
+      return date.toString().slice(0, 15)
+    }
+
     render(){
 
         let ingredients = []
@@ -27,6 +32,7 @@ class Order extends Component {
             <div className="Order">
                 <p>Ingredients :{ingredientOutput} </p>
                 <p>Price : <strong>R {this.props.price}</strong></p>
+                <p> Create Date : {this.convertDate(this.props.createDate)}</p>
             </div>
         )
     }

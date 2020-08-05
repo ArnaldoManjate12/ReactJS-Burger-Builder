@@ -23,8 +23,14 @@ export const Authenticate = ( email , password , isSignUp ) => {
             dispatch( CheckAuthTimeout( response.data.expiresIn ) )
             dispatch( AuthSuccess(response.data.idToken , response.data.localId) )
         } )
-        .catch( error => {
-            dispatch( AuthFail(error) )
+        .catch( (error) => {
+            console.log(error)
+            if(error.response){
+                localStorage.setItem( "Auth Error : " ,JSON.stringify(error.response))
+                dispatch( AuthFail(error.response.data.error.message))
+            }else{
+                dispatch( AuthFail("Error Login In"))
+            }
         })
     }
 }
