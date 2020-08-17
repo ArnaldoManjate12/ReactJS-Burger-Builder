@@ -40,11 +40,11 @@ class App extends Component {
 
     if( this.props.isAuthenticated ){
         routes =  <Switch>
-                    <Route path="/checkout"  component={asyncCheckout} />
+                    <Route path="/" exact component={BurgerBuilder} />
+                    <Route path="/checkout" component={asyncCheckout} />
                     <Route path="/orders"  component={asyncOrders} />
                     <Route path="/auth"  component={asyncAuth} />
                     <Route path="/logout" component={Logout} />
-                    <Route path="/" exact component={BurgerBuilder} />
                     <Redirect to="/" />
                   </Switch>
     }

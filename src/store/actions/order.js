@@ -5,11 +5,9 @@ import * as actionTypes from '../actions/actionTypes'
 // will wait 6 seconds before clearing the success state for the oredr
 // this will disable the alert message
 export const clearOrderSuccess = () => {
-  
     return {
         type : actionTypes.CLEAR_ORDER_SUCCESS
     }
-
 }
 
 export const enableOrderAlert = () => {
@@ -37,8 +35,9 @@ export const  purchaseBurger = (orderData , token ) => {
         dispatch( purchaseBurgerStart() )
         axiosOrders.post( "/orders.json?auth=" + token, orderData )
         .then( response => {
-            dispatch( purchaseBurgerSuccess(response.data , orderData) )
-            dispatch( purchaseInit())
+            dispatch(purchaseBurgerSuccess(response.data , orderData))
+            dispatch(purchaseInit())
+            setTimeout(() => dispatch(clearOrderSuccess()), 3000)
         })
         .catch( error => {
             dispatch( purchaseBurgerFail(error) )
@@ -47,6 +46,7 @@ export const  purchaseBurger = (orderData , token ) => {
 }
 // syncronous Order action creator
 export const purchaseBurgerSuccess = ( id , orderData ) => {
+
     return {
         type : actionTypes.PURCHASE_BURGER_SUCCESS,
         orderID : id,

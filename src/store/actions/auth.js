@@ -29,7 +29,7 @@ export const Authenticate = ( email , password , isSignUp ) => {
                 localStorage.setItem( "Auth Error : " ,JSON.stringify(error.response))
                 dispatch( AuthFail(error.response.data.error.message))
             }else{
-                dispatch( AuthFail("Error Login In"))
+                dispatch( AuthFail(isSignUp ? "Error Signing Up" :"Error Signing In"))
             }
         })
     }
