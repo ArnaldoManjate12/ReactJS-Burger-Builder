@@ -33,11 +33,11 @@ export const purchaseBurgerStart = () => {
 export const  purchaseBurger = (orderData , token ) => {
     return dispatch => {
         dispatch( purchaseBurgerStart() )
-        axiosOrders.post( "/orders.json?auth=" + token, orderData )
+        axiosOrders.post( "orders.json?auth=" + token, orderData )
         .then( response => {
             dispatch(purchaseBurgerSuccess(response.data , orderData))
             dispatch(purchaseInit())
-            setTimeout(() => dispatch(clearOrderSuccess()), 3000)
+            setTimeout(() => dispatch(clearOrderSuccess()), 2000) // wait 2 seconds before clearing Order Success
         })
         .catch( error => {
             dispatch( purchaseBurgerFail(error) )

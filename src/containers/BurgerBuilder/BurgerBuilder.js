@@ -13,7 +13,6 @@ import {connect} from 'react-redux';
 import './BurgerBuilder.css';
 // exporting the class without the connection to redux for testing purposes
 export class BurgerBuilder extends Component {
-
     state = {
         totalPrice : 4,
         purchasable : false,
@@ -68,8 +67,6 @@ export class BurgerBuilder extends Component {
                             duration="5"
                             message="Order Saved Successfully"
                             classes="AlertMessageSuccess" />
-
-            // this.props.onClearOrderSuccess()
         }
       
         // for the less and more Buttons

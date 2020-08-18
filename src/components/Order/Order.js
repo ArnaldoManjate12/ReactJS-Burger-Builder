@@ -3,11 +3,6 @@ import './Order.css';
 
 class Order extends Component {
 
-    componentDidMount() {
-   
-     
-    }
-
     convertDate = (orderDate) => {
       let date = new Date(orderDate);
       return date.toString().slice(0, 15)

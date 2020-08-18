@@ -25,3 +25,10 @@
         display: none;
     }
 }
+
+
+@media (max-width: 500px) {
+    nav{
+        margin-top: 25px !important;
+    }
+}

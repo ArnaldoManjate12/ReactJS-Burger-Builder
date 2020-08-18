@@ -10,8 +10,8 @@ export const Authenticate = ( email , password , isSignUp ) => {
             returnSecureToken : true
         }
         // conditional URL 
-        let url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAvvRz3czE_pcBGVwjFeN8q3CoRVii4SYY"
-        if( !isSignUp ) url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAvvRz3czE_pcBGVwjFeN8q3CoRVii4SYY"
+        let url = process.env.REACT_APP_SIGNUP_URL
+        if( !isSignUp ) url = process.env.REACT_APP_SIGNIN_URL
         // authenticate
         axois.post( url , authData )
         .then( response => {

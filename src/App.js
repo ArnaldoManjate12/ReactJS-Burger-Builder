@@ -26,6 +26,8 @@ const asyncAuth = asyncComponent( () => {
 class App extends Component {
   componentDidMount(){
     this.props.onAutoLogin()
+    console.log("process Enviromnet :" ,process.env.ORDERS_URL)
+    console.log("React Enviromnet :" )
   }
 
  

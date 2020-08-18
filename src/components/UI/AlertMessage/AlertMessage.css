@@ -3,6 +3,7 @@
     width: 25%;
     right: 10%;
     height: 100%;    
+    transition: all .3s ease;
 }
 
 .AlertMessageSuccess{

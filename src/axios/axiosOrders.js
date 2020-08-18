@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 const ordersInstance = axios.create({
-    baseURL : "https://react-burger-bead9.firebaseio.com",
+    baseURL : process.env.REACT_APP_ORDERS_URL,
     mode: 'no-cors',
     headers: { 
-        'Access-Control-Allow-Origin' : '*',
-        //'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        'Access-Control-Allow-Origin' : '*'
       }
 });
 

@@ -4,13 +4,12 @@ import './Burger.css';
 
 
 class Burger extends Component {
-
-    componentDidUpdate(){
-        
+    componentDidMount(){
+        console.log("Enviromnet :" ,process.env.REACT_APP_ORDERS_URL)
+        console.log("Enviromnet :" ,process.env.REACT_APP_IGREDIENTS_URL)
     }
 
     render(){
-
         let burgerIngredients = Object.keys(this.props.ingredients).map(
             ingredientKey =>  [...Array(this.props.ingredients[ingredientKey])].map(
                 (_,i) => {
@@ -40,7 +39,6 @@ class Burger extends Component {
                 <BurgerIngredient type="bread-bottom"/> 
             </div>
         )
-
     }
 }
 
