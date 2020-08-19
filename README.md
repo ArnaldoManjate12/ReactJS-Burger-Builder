@@ -18,4 +18,4 @@ ie:
 ## Application Usage 
 ### Authenticate 
 ##### sign in or sign up if you dont alreay have an Account
-<img src="imgaes/authentication.gif">
+<img src="images/authentication.gif">
