@@ -18,14 +18,14 @@ ie:
 ## Application Usage 
 ### Authenticate 
 ##### sign in or sign up if you dont alreay have an Account
-<img src="images/authentication.gif">
+<img src="images/authentication.gif" height="500px">
 
 ##### select the ingredient you would like in your Brger
-<img src="images/ingredients.gif">
+<img src="images/ingredients.gif" height="500px">
 
 ##### Fill in form Details
-<img src="images/form.gif">
+<img src="images/form.gif" height="500px">
 
 
 ##### View your Order history on the Orders screen
-<img src="images/orders.gif">
+<img src="images/orders.gif" height="500px">
