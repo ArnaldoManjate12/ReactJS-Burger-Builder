@@ -1,4 +1,4 @@
-# Burger Builder
+# ReactJS Burger Builder
 
 ## Instalation 
 After cloning the repository install the node modules
@@ -19,3 +19,13 @@ ie:
 ### Authenticate 
 ##### sign in or sign up if you dont alreay have an Account
 <img src="images/authentication.gif">
+
+##### select the ingredient you would like in your Brger
+<img src="images/ingredients.gif">
+
+##### Fill in form Details
+<img src="images/form.gif">
+
+
+##### View your Order history on the Orders screen
+<img src="images/orders.gif">
