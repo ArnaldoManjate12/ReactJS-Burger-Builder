@@ -12,8 +12,8 @@ ie:
 ## Run the Applcation
 ``sh yarn start ``
 
-### A live Deployment of the Application can be seen by visting the link below:
-<a href="https://react-burger-bead9.firebaseapp.com/"  style="padding: 10px ; background-color:green ;width:50px; height:15px;border-radius:5px; color:white;"/>CLICK HERE</a>
+### Click the link Below to see a deployed version of the Application
+<a href="https://react-burger-bead9.firebaseapp.com/"  target="_blank" style="padding: 10px;background-color:green ;width:50px; height:15px;border-radius:5px; color:white;text-decoration:none"/>CLICK HERE</a>
 
 ## Application Usage 
 ### Authenticate 
