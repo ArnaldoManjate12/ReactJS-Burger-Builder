@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route , Switch,withRouter, Redirect } from 'react-router-dom';
 // components
 import Layout from './components/Layout/Layout';
@@ -23,32 +23,27 @@ const asyncAuth = asyncComponent( () => {
 })
 
 
-class App extends Component {
-  componentDidMount(){
-    this.props.onAutoLogin()
-    console.log("process Enviromnet :" ,process.env.ORDERS_URL)
-    console.log("React Enviromnet :" )
-  }
+const App = (props) =>  {
+  // will run once he component is mounted to the DOM
+  useEffect(() => {
+    props.onAutoLogin()
+  }, [])
+    
+  let routes =  <Switch>
+                  <Route path="/auth"  component={asyncAuth} />
+                  <Route path="/" exact component={BurgerBuilder} />
+                  <Redirect to="/" />
+                </Switch>
 
- 
-
-  render() {
-
-    let routes =  <Switch>
-                    <Route path="/auth"  component={asyncAuth} />
-                    <Route path="/" exact component={BurgerBuilder} />
-                    <Redirect to="/" />
-                  </Switch>
-
-    if( this.props.isAuthenticated ){
-        routes =  <Switch>
-                    <Route path="/" exact component={BurgerBuilder} />
-                    <Route path="/checkout" component={asyncCheckout} />
-                    <Route path="/orders"  component={asyncOrders} />
-                    <Route path="/auth"  component={asyncAuth} />
-                    <Route path="/logout" component={Logout} />
-                    <Redirect to="/" />
-                  </Switch>
+  if( props.isAuthenticated ){
+      routes =  <Switch>
+                  <Route path="/" exact component={BurgerBuilder} />
+                  <Route path="/checkout" component={asyncCheckout} />
+                  <Route path="/orders"  component={asyncOrders} />
+                  <Route path="/auth"  component={asyncAuth} />
+                  <Route path="/logout" component={Logout} />
+                  <Redirect to="/" />
+                </Switch>
     }
 
     return (
@@ -59,7 +54,7 @@ class App extends Component {
       </div>
     );
   }
-}
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -74,4 +69,8 @@ const mapStateToProps = state => {
 
 }
 
-export default withRouter(connect( mapStateToProps , mapDispatchToProps)(App));
+export default withRouter(
+  connect( 
+    mapStateToProps , 
+    mapDispatchToProps)(App)
+  );
